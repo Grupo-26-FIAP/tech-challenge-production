@@ -1,25 +1,14 @@
 import { Inject, Injectable, NotFoundException } from '@nestjs/common';
 import { OrderStatusType } from '@Shared/enums/order-status-type.enum';
 import { PaymentStatusType } from '@Shared/enums/payment-status-type.enum';
-import { ITokenPayload } from '@Shared/interfaces/token-payload.interface';
 import { CreateOrderEntity } from '../../entities/create-order.entity';
 import { OrderEntity } from '../../entities/order.entity';
-import { ProductOrderEntity } from '../../entities/product-order.entity';
-import { UserEntity } from '../../entities/user.entity';
+
 import {
   IOrderRepository,
   IOrderRepositorySymbol,
 } from '../../repositories/order.repository';
-import {
-  IProductOrderRepository,
-  IProductOrderRepositorySymbol,
-} from '../../repositories/product-order.repository';
 import { TotalPriceValueObject } from '../../value-objects/total-price.value-objects';
-import {
-  IProductService,
-  IProductServiceSymbol,
-} from '../product/product.service';
-import { IUserService, IUserServiceSymbol } from '../user/user.service';
 import { IOrderService } from './order.service';
 
 @Injectable()
@@ -27,12 +16,12 @@ export class OrderServiceImpl implements IOrderService {
   constructor(
     @Inject(IOrderRepositorySymbol)
     private readonly repository: IOrderRepository,
-    @Inject(IProductOrderRepositorySymbol)
-    private readonly productOrderRepository: IProductOrderRepository,
-    @Inject(IProductServiceSymbol)
-    private readonly productService: IProductService,
-    @Inject(IUserServiceSymbol)
-    private readonly userService: IUserService,
+    // @Inject(IProductOrderRepositorySymbol)
+    // private readonly productOrderRepository: IProductOrderRepository,
+    // @Inject(IProductServiceSymbol)
+    // private readonly productService: IProductService,
+    // @Inject(IUserServiceSymbol)
+    // private readonly userService: IUserService,
   ) {}
 
   async update(id: number, orderStatus: OrderStatusType): Promise<void> {
@@ -56,37 +45,34 @@ export class OrderServiceImpl implements IOrderService {
   }
 
   async createOrder(order: CreateOrderEntity): Promise<OrderEntity> {
-    let user: UserEntity;
+    //let user: UserEntity;
 
     if (order.cpf) {
       const cpf = order.cpf;
-      user = await this.userService.getOne({ cpf });
+      //user = await this.userService.getOne({ cpf });
     }
 
-    const productsOrder: ProductOrderEntity[] = [];
-    let totalPrice = 0;
-    let estimatedPreparationTime = 0;
+    //const productsOrder: ProductOrderEntity[] = [];
+    const totalPrice = 0;
+    const estimatedPreparationTime = 0;
 
     for (const productOrder of order.productOrders) {
-      const product = await this.productService.findById(
-        productOrder.productId,
-      );
-
-      if (product) {
-        totalPrice += product.price * productOrder.quantity;
-        estimatedPreparationTime +=
-          product.preparationTime * productOrder.quantity;
-
-        const productOrderEntity = await this.productOrderRepository.save(
-          new ProductOrderEntity(productOrder.quantity, product, new Date()),
-        );
-
-        productsOrder.push(productOrderEntity);
-      } else {
-        throw new NotFoundException(
-          `Product with ID ${productOrder.productId} not found`,
-        );
-      }
+      // const product = await this.productService.findById(
+      //   productOrder.productId,
+      // );
+      // if (product) {
+      //   totalPrice += product.price * productOrder.quantity;
+      //   estimatedPreparationTime +=
+      //     product.preparationTime * productOrder.quantity;
+      //   const productOrderEntity = await this.productOrderRepository.save(
+      //     new ProductOrderEntity(productOrder.quantity, product, new Date()),
+      //   );
+      //   productsOrder.push(productOrderEntity);
+      // } else {
+      //   throw new NotFoundException(
+      //     `Product with ID ${productOrder.productId} not found`,
+      //   );
+      // }
     }
 
     const orderEntity = new OrderEntity(
@@ -95,8 +81,8 @@ export class OrderServiceImpl implements IOrderService {
       OrderStatusType.NONE,
       new Date(),
       estimatedPreparationTime,
-      productsOrder,
-      user,
+      null,
+      null,
     );
 
     return this.repository.save(orderEntity);
@@ -121,7 +107,7 @@ export class OrderServiceImpl implements IOrderService {
     return this.repository.findById(id);
   }
 
-  async findAllOrders(userToken: ITokenPayload): Promise<OrderEntity[]> {
+  async findAllOrders(userToken: any): Promise<OrderEntity[]> {
     return this.repository.findAll(userToken);
   }
 }
