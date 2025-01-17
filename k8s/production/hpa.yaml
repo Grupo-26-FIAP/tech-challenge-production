@@ -1,12 +1,12 @@
 apiVersion: autoscaling/v2
 kind: HorizontalPodAutoscaler
 metadata:
-  name: hpa
+  name: hpa-production
 spec:
   scaleTargetRef:
     apiVersion: apps/v1
     kind: Deployment
-    name: tech-challenge-fiap-api
+    name: tech-challenge-production-deployment
   minReplicas: 1
   maxReplicas: 10
   metrics:
