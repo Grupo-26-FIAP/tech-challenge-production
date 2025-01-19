@@ -1,11 +1,9 @@
-import { CreateOrderRequestDto } from '@Application/dtos/request/order/create-order.request.dto';
 import { UpdateOrderRequestDto } from '@Application/dtos/request/order/update-order.request.dto';
 import { OrderResponseDto } from '@Application/dtos/response/order/order.response.dto';
-import { CreateOrderUseCase } from '@Application/use-cases/order/create-order.use-case';
 import { FindAllOrdersUseCase } from '@Application/use-cases/order/find-all-orders.use-case';
 import { FindOrderByIdUseCase } from '@Application/use-cases/order/find-order-by-id.use-case';
 import { UpdateOrderUseCase } from '@Application/use-cases/order/update-order.use-case';
-import { Body, Controller, Get, Param, Post, Put } from '@nestjs/common';
+import { Body, Controller, Get, Param, Put } from '@nestjs/common';
 import {
   ApiBearerAuth,
   ApiOperation,
@@ -17,26 +15,10 @@ import {
 @Controller('/api/orders')
 export class OrderController {
   constructor(
-    private readonly createOrderUseCase: CreateOrderUseCase,
     private readonly findOrderByIdUseCase: FindOrderByIdUseCase,
     private readonly findAllOrdersUseCase: FindAllOrdersUseCase,
     private readonly updateOrderUseCase: UpdateOrderUseCase,
   ) {}
-
-  @Post()
-  @ApiOperation({ summary: 'Cria um novo pedido' })
-  @ApiResponse({
-    status: 201,
-    description: 'Pedido criado com sucesso',
-    type: OrderResponseDto,
-  })
-  @ApiResponse({ status: 400, description: 'Dados inválidos' })
-  @ApiResponse({ status: 500, description: 'Erro interno do servidor' })
-  async createOrder(
-    @Body() dto: CreateOrderRequestDto,
-  ): Promise<OrderResponseDto> {
-    return this.createOrderUseCase.execute(dto);
-  }
 
   @Get(':id')
   @ApiOperation({ summary: 'Obtém um pedido por ID' })
@@ -68,7 +50,7 @@ export class OrderController {
   })
   @ApiResponse({ status: 500, description: 'Erro interno do servidor' })
   async findAllOrders(): Promise<OrderResponseDto[]> {
-    return this.findAllOrdersUseCase.execute('');
+    return this.findAllOrdersUseCase.execute();
   }
 
   @Put()

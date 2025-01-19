@@ -9,18 +9,18 @@ export class OrderEntity {
     public orderStatus: OrderStatusType,
     public createdAt: Date,
     public estimatedPreparationTime: number,
-    public productsOrder: ProductOrderEntity[],
-    public user?: any,
+    public preparationTime: number,
+    public productsOrder: OrderItemEntity[],
+    public userId?: number,
     public id?: number,
     public updatedAt?: Date,
-    public preparationTime?: number,
   ) {}
 }
 
-export class ProductOrderEntity {
+export class OrderItemEntity {
   constructor(
     public quantity: number,
-    public product: any,
+    public productId: number,
     public createdAt: Date,
     public id?: number,
   ) {}
