@@ -1,3 +1,5 @@
+import { ConsumerModule } from '@Infrastructure/queue/consumer/consumer.module';
+import { ProducerModule } from '@Infrastructure/queue/producer/producer.module';
 import { PostgresConfigService } from '@Infrastructure/typeorm/config/postgres.config.service';
 import { OrderItemModel } from '@Infrastructure/typeorm/models/order-item.model';
 import { OrderModel } from '@Infrastructure/typeorm/models/order.model';
@@ -7,7 +9,6 @@ import { JwtModule } from '@nestjs/jwt';
 import { TerminusModule } from '@nestjs/terminus';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { EnvironmentVariableModule } from '@Shared/config/environment-variable/environment-variable.module';
-import { CancelOrderUseCase } from './application/use-cases/order/cancel-order.use-case';
 import { FindAllOrdersUseCase } from './application/use-cases/order/find-all-orders.use-case';
 import { FindOrderByIdUseCase } from './application/use-cases/order/find-order-by-id.use-case';
 import { UpdateOrderUseCase } from './application/use-cases/order/update-order.use-case';
@@ -31,10 +32,11 @@ import { OrderController } from './presentation/controllers/order.controller';
     TypeOrmModule.forFeature([OrderModel, OrderItemModel]),
     EnvironmentVariableModule.forRoot({ isGlobal: true }),
     TerminusModule,
+    ProducerModule,
+    ConsumerModule,
   ],
   providers: [
     OrderServiceImpl,
-    CancelOrderUseCase,
     UpdateOrderUseCase,
     FindOrderByIdUseCase,
     FindAllOrdersUseCase,

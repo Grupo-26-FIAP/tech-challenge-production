@@ -12,9 +12,16 @@ export class OrderRepositoryImpl implements IOrderRepository {
   ) {}
 
   async save(order: OrderEntity): Promise<OrderEntity> {
+    console.log({ order: order });
+
     const orderModel = OrderMapper.toModel(order);
-    const savedModel = await this.repository.save(orderModel);
-    return OrderMapper.toEntity(savedModel);
+    try {
+      const savedModel = await this.repository.save(orderModel);
+      return OrderMapper.toEntity(savedModel);
+    } catch (error) {
+      console.log(error);
+      return null;
+    }
   }
 
   async update(id: number, order: OrderEntity): Promise<OrderEntity> {

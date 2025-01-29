@@ -1,8 +1,6 @@
 import { OrderItemEntity } from '@Domain/entities/order-item.entity';
 import { ApiProperty } from '@nestjs/swagger';
 import { OrderStatusType } from '@Shared/enums/order-status-type.enum';
-import { PaymentStatusType } from '@Shared/enums/payment-status-type.enum';
-import { Column } from 'typeorm';
 
 export class OrderResponseDto {
   @ApiProperty({
@@ -12,28 +10,9 @@ export class OrderResponseDto {
   id: number;
 
   @ApiProperty({
-    description: 'Preço total do pedido.',
-    example: 100.0,
-  })
-  totalPrice: number;
-
-  @Column({
-    type: 'integer',
-    nullable: false,
-    comment: 'Tempo estimado para a preparação do pedido em minutos.',
-  })
-  estimatedPreparationTime: number;
-
-  @ApiProperty({
     description: 'Usuário que fez o pedido.',
   })
   user?: number;
-
-  @ApiProperty({
-    description: 'Status do pagamento do pedido.',
-    example: 'pending',
-  })
-  paymentStatus: PaymentStatusType;
 
   @ApiProperty({
     description: 'Status do pedido.',

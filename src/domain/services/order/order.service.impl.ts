@@ -1,5 +1,4 @@
 import { Inject, Injectable, NotFoundException } from '@nestjs/common';
-import { PaymentStatusType } from '@Shared/enums/payment-status-type.enum';
 import { OrderEntity } from '../../entities/order.entity';
 
 import {
@@ -42,18 +41,15 @@ export class OrderServiceImpl implements IOrderService {
     this.repository.save(order);
   }
 
-  async cancelOrder(id: number): Promise<void> {
-    const order = await this.repository.findById(id);
-    if (!order) throw new NotFoundException('Order not found');
-    order.paymentStatus = PaymentStatusType.CANCELED;
-    this.repository.save(order);
-  }
-
   async findOrderById(id: number): Promise<OrderEntity> {
     return this.repository.findById(id);
   }
 
   async findAllOrders(): Promise<OrderEntity[]> {
     return this.repository.findAll();
+  }
+
+  async createOrder(order: OrderEntity): Promise<void> {
+    await this.repository.save(order);
   }
 }

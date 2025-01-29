@@ -1,5 +1,4 @@
 import { OrderEntity } from '@Domain/entities/order.entity';
-import { TotalPriceValueObject } from '@Domain/value-objects/total-price.value-objects';
 import { OrderModel } from '../models/order.model';
 import { OrderItemMapper } from './order-item.mapper';
 
@@ -8,11 +7,8 @@ export class OrderMapper {
     if (!orderModel) return null;
 
     return new OrderEntity(
-      new TotalPriceValueObject(orderModel.totalPrice),
-      orderModel.paymentStatus,
       orderModel.orderStatus,
       orderModel.createdAt,
-      orderModel.estimatedPreparationTime,
       orderModel.preparationTime,
       orderModel.OrderItems?.map(OrderItemMapper.toEntity),
       orderModel.userId,
@@ -26,10 +22,7 @@ export class OrderMapper {
 
     const model = new OrderModel();
     model.id = orderEntity.id;
-    model.totalPrice = orderEntity.totalPrice.getValue();
-    model.paymentStatus = orderEntity.paymentStatus;
     model.orderStatus = orderEntity.orderStatus;
-    model.estimatedPreparationTime = orderEntity.estimatedPreparationTime;
     model.createdAt = orderEntity.createdAt;
     model.updatedAt = orderEntity.updatedAt;
     model.OrderItems = orderEntity.productsOrder?.map(OrderItemMapper.toModel);

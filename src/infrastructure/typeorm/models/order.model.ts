@@ -5,7 +5,7 @@ import {
   CreateDateColumn,
   Entity,
   OneToMany,
-  PrimaryGeneratedColumn,
+  PrimaryColumn,
   UpdateDateColumn,
 } from 'typeorm';
 import { OrderItemModel } from './order-item.model';
@@ -14,19 +14,12 @@ import { OrderItemModel } from './order-item.model';
   comment: 'Entidade que representa um pedido feito por um usuário.',
 })
 export class OrderModel {
-  @PrimaryGeneratedColumn()
+  @PrimaryColumn()
   id: number;
 
   @Column({
-    type: 'double precision',
-    nullable: false,
-    comment: 'Preço total do pedido',
-  })
-  totalPrice: number;
-
-  @Column({
     type: 'integer',
-    nullable: false,
+    nullable: true,
     comment: 'Tempo estimado para a preparação do pedido em minutos.',
   })
   estimatedPreparationTime: number;

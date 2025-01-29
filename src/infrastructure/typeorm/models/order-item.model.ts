@@ -3,7 +3,7 @@ import {
   CreateDateColumn,
   Entity,
   ManyToOne,
-  PrimaryGeneratedColumn,
+  PrimaryColumn,
 } from 'typeorm';
 import { OrderModel } from './order.model';
 
@@ -13,7 +13,7 @@ import { OrderModel } from './order.model';
     'Entidade que representa a relação entre um produto e um pedido, incluindo a quantidade do produto no pedido.',
 })
 export class OrderItemModel {
-  @PrimaryGeneratedColumn()
+  @PrimaryColumn()
   id: number;
 
   productId: number;
