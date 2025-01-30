@@ -40,6 +40,7 @@ const config: Config.InitialOptions = {
     '.eslintrc.js',
     'jest.config.ts',
   ],
+  coverageReporters: ['html', 'text'],
 };
 
 export default config;
