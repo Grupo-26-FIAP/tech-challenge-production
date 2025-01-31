@@ -30,6 +30,7 @@ const config: Config.InitialOptions = {
     '/features/',
     '/dist/',
     '/src/infrastructure/typeorm/',
+    '/src/infrastructure/queue/',
     '/src/shared/',
     '/src/application/mappers/',
     '/src/application/dtos/',
