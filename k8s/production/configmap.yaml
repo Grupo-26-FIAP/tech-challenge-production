@@ -11,3 +11,8 @@ data:
   POSTGRES_PORT: "5432"
   POSTGRES_HOST: "${{ secrets.POSTGRES_HOST }}"
   USER_TOKEN_EXPIRES_IN: "900"
+  PRODUCTION_STATUS_QUEUE_NAME: "production-status-updated-queue.fifo"
+  PRODUCTION_STATUS_QUEUE_URL: "https://sqs.us-east-1.amazonaws.com/528038094654/production-status-updated-queue.fifo"
+  ORDER_QUEUE_NAME: "order-ready-for-production-queue.fifo"
+  ORDER_QUEUE_URL: "https://sqs.us-east-1.amazonaws.com/528038094654/order-ready-for-production-queue.fifo"
+

@@ -58,8 +58,9 @@ export class OrderModel {
   createdAt: Date;
 
   @UpdateDateColumn({
+    default: () => 'now()',
     name: 'updated_at',
-    type: 'timestamp',
+    type: 'timestamp with time zone',
     nullable: true,
     comment: 'Data da última atualização do pedido',
   })
@@ -67,6 +68,7 @@ export class OrderModel {
 
   @OneToMany(() => OrderItemModel, (productOrder) => productOrder.order, {
     eager: true,
+    cascade: ['insert', 'update', 'remove'],
   })
   OrderItems: OrderItemModel[];
 }

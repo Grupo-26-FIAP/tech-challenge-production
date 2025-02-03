@@ -16,8 +16,7 @@ export class CreateOrderUseCase {
   ) {}
 
   async execute(orderEntityRequest: OrderEntity): Promise<void> {
-    console.log(orderEntityRequest);
-
+    orderEntityRequest.orderStatus = OrderStatusType.RECEIVED;
     await this.service.createOrder(orderEntityRequest);
 
     await this.messageProducer.sendMessage(

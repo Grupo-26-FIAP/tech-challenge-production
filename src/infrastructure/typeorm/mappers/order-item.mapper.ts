@@ -17,7 +17,6 @@ export class OrderItemMapper {
     if (!orderEntity) return null;
 
     const model = new OrderItemModel();
-    model.id = orderEntity.id;
     model.quantity = orderEntity.quantity;
     model.createdAt = orderEntity.createdAt;
     model.productId = orderEntity.productId;

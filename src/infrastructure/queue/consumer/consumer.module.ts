@@ -22,6 +22,7 @@ AWS.config.update({
   region: process.env.AWS_REGION,
   accessKeyId: process.env.ACCESS_KEY_ID,
   secretAccessKey: process.env.SECRET_ACCESS_KEY,
+  sessionToken: process.env.SESSION_TOKEN,
 });
 
 console.log({ queueUrl: process.env.ORDER_QUEUE_URL });
@@ -32,7 +33,7 @@ console.log({ queueUrl: process.env.ORDER_QUEUE_NAME });
     SqsModule.register({
       consumers: [
         {
-          name: 'order-ready-for-production-queue.fifo',
+          name: process.env.ORDER_QUEUE_NAME,
           queueUrl: process.env.ORDER_QUEUE_URL,
           region: process.env.AWS_REGION,
         },

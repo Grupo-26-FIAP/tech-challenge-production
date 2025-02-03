@@ -14,11 +14,11 @@ export class MessageHandler {
     this.sqs = new AWS.SQS();
   }
 
-  @SqsMessageHandler('order-ready-for-production-queue.fifo', false)
+  @SqsMessageHandler(process.env.ORDER_QUEUE_NAME, false)
   async handleMessage(message: AWS.SQS.Message) {
     const data = JSON.parse(message.Body) as OrderEntity;
 
-    console.log(data);
+    console.log({ message: data });
 
     await this.createOrderUseCase.execute(data);
 

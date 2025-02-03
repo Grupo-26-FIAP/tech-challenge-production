@@ -3,7 +3,8 @@ import { IOrderRepository } from '@Domain/repositories/order.repository';
 import { OrderMapper } from '@Infrastructure/typeorm/mappers/order.mapper';
 import { OrderModel } from '@Infrastructure/typeorm/models/order.model';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Repository } from 'typeorm';
+import { OrderStatusType } from '@Shared/enums/order-status-type.enum';
+import { In, Repository } from 'typeorm';
 
 export class OrderRepositoryImpl implements IOrderRepository {
   constructor(
@@ -12,8 +13,6 @@ export class OrderRepositoryImpl implements IOrderRepository {
   ) {}
 
   async save(order: OrderEntity): Promise<OrderEntity> {
-    console.log({ order: order });
-
     const orderModel = OrderMapper.toModel(order);
     try {
       const savedModel = await this.repository.save(orderModel);
@@ -42,6 +41,14 @@ export class OrderRepositoryImpl implements IOrderRepository {
     const orders = await this.repository.find({
       order: {
         createdAt: 'DESC',
+      },
+      relations: ['OrderItems'],
+      where: {
+        orderStatus: In([
+          OrderStatusType.RECEIVED,
+          OrderStatusType.IN_PREPARATION,
+          OrderStatusType.READY,
+        ]),
       },
     });
     return orders.map(OrderMapper.toEntity);
