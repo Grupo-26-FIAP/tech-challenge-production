@@ -12,5 +12,10 @@ spec:
     app: tech-challenge-production-deployment
   ports:
     - port: 80
+      name:  aws
+      targetPort: 3004
+    - port: 30104
+      name:  default
+      protocol: TCP
       targetPort: 3004
   type: LoadBalancer
