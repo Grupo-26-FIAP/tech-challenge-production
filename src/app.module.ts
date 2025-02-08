@@ -4,11 +4,12 @@ import { PostgresConfigService } from '@Infrastructure/typeorm/config/postgres.c
 import { OrderItemModel } from '@Infrastructure/typeorm/models/order-item.model';
 import { OrderModel } from '@Infrastructure/typeorm/models/order.model';
 import { HttpModule } from '@nestjs/axios';
-import { Module } from '@nestjs/common';
+import { MiddlewareConsumer, Module, NestModule } from '@nestjs/common';
 import { JwtModule } from '@nestjs/jwt';
 import { TerminusModule } from '@nestjs/terminus';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { EnvironmentVariableModule } from '@Shared/config/environment-variable/environment-variable.module';
+import { ResponseMiddleware } from '@Shared/middlewares/response.middleware';
 import { FindAllOrdersUseCase } from './application/use-cases/order/find-all-orders.use-case';
 import { FindOrderByIdUseCase } from './application/use-cases/order/find-order-by-id.use-case';
 import { UpdateOrderUseCase } from './application/use-cases/order/update-order.use-case';
