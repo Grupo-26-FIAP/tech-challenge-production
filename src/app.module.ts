@@ -55,4 +55,8 @@ import { OrderController } from './presentation/controllers/order.controller';
   ],
   controllers: [OrderController, HealthController],
 })
-export class AppModule {}
+export class AppModule implements NestModule {
+  configure(consumer: MiddlewareConsumer) {
+    consumer.apply(ResponseMiddleware).forRoutes('*'); // Apply the middleware to all routes
+  }
+}

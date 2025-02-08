@@ -14,7 +14,6 @@ spec:
       containers:
       - name: tech-challenge-production
         image:  diname/tech-challenge-production:latest
-        imagePullPolicy: IfNotPresent
         envFrom:
         - configMapRef:
             name: tech-challenge-production-general-settings
