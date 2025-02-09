@@ -25,16 +25,16 @@ AWS.config.update({
   sessionToken: process.env.SESSION_TOKEN,
 });
 
-console.log({ queueUrl: process.env.ORDER_QUEUE_URL });
-console.log({ queueUrl: process.env.ORDER_QUEUE_NAME });
+console.log({ queueUrl: process.env.ORDER_READY_FOR_PRODUCTION_QUEUE_URL });
+console.log({ queueUrl: process.env.ORDER_READY_FOR_PRODUCTION_QUEUE_NAME });
 
 @Module({
   imports: [
     SqsModule.register({
       consumers: [
         {
-          name: process.env.ORDER_QUEUE_NAME,
-          queueUrl: process.env.ORDER_QUEUE_URL,
+          name: process.env.ORDER_READY_FOR_PRODUCTION_QUEUE_NAME,
+          queueUrl: process.env.ORDER_READY_FOR_PRODUCTION_QUEUE_URL,
           region: process.env.AWS_REGION,
         },
       ],

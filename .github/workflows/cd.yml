@@ -68,8 +68,8 @@ jobs:
             --from-literal=SESSION_TOKEN=${{ secrets.SESSION_TOKEN }} \
             --from-literal=PRODUCTION_STATUS_QUEUE_NAME=${{ secrets.PRODUCTION_STATUS_QUEUE_NAME }} \
             --from-literal=PRODUCTION_STATUS_QUEUE_URL=${{ secrets.PRODUCTION_STATUS_QUEUE_URL }} \
-            --from-literal=ORDER_QUEUE_NAME=${{ secrets.ORDER_QUEUE_NAME }} \
-            --from-literal=ORDER_QUEUE_URL=${{ secrets.ORDER_QUEUE_URL }} \
+            --from-literal=ORDER_READY_FOR_PRODUCTION_QUEUE_NAME=${{ secrets.ORDER_READY_FOR_PRODUCTION_QUEUE_NAME }} \
+            --from-literal=ORDER_READY_FOR_PRODUCTION_QUEUE_URL=${{ secrets.ORDER_READY_FOR_PRODUCTION_QUEUE_URL }} \
 
       - name: Kube Apply
         run: |
