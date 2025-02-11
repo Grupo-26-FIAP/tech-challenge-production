@@ -1,13 +1,13 @@
+import { UpdateOrderRequestDto } from '@Application/dtos/request/order/update-order.request.dto';
 import {
   IOrderService,
   IOrderServiceSymbol,
 } from '@Domain/services/order/order.service';
 import { MessageProducer } from '@Infrastructure/queue/producer/producer.service';
 import { Test, TestingModule } from '@nestjs/testing';
-import { UpdateOrderRequestDto } from '../../dtos/request/order/update-order.request.dto';
 
 import { OrderStatusType } from '@Shared/enums/order-status-type.enum';
-import { UpdateOrderUseCase } from './update-order.use-case';
+import { UpdateOrderUseCase } from '../src/application/use-cases/order/update-order.use-case';
 
 describe('UpdateOrderUseCase', () => {
   let updateOrderUseCase: UpdateOrderUseCase;

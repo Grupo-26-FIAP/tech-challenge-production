@@ -1,12 +1,12 @@
+import { OrderResponseDto } from '@Application/dtos/response/order/order.response.dto';
+import { OrderMapper } from '@Application/mappers/order.mapper';
 import {
   IOrderService,
   IOrderServiceSymbol,
 } from '@Domain/services/order/order.service';
 import { Test, TestingModule } from '@nestjs/testing';
 import { OrderStatusType } from '@Shared/enums/order-status-type.enum';
-import { OrderResponseDto } from '../../dtos/response/order/order.response.dto';
-import { OrderMapper } from '../../mappers/order.mapper';
-import { FindOrderByIdUseCase } from './find-order-by-id.use-case';
+import { FindOrderByIdUseCase } from '../src/application/use-cases/order/find-order-by-id.use-case';
 
 describe('FindOrderByIdUseCase', () => {
   let useCase: FindOrderByIdUseCase;

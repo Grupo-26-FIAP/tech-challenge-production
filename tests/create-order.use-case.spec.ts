@@ -6,7 +6,7 @@ import {
 import { MessageProducer } from '@Infrastructure/queue/producer/producer.service';
 import { Test, TestingModule } from '@nestjs/testing';
 import { OrderStatusType } from '@Shared/enums/order-status-type.enum';
-import { CreateOrderUseCase } from './create-order.use-case';
+import { CreateOrderUseCase } from '../src/application/use-cases/order/create-order.use-case';
 
 describe('CreateOrderUseCase', () => {
   let createOrderUseCase: CreateOrderUseCase;

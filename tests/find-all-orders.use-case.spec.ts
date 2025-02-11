@@ -1,3 +1,4 @@
+import { OrderMapper } from '@Application/mappers/order.mapper';
 import { OrderEntity } from '@Domain/entities/order.entity';
 import {
   IOrderService,
@@ -5,8 +6,7 @@ import {
 } from '@Domain/services/order/order.service';
 import { Test, TestingModule } from '@nestjs/testing';
 import { OrderStatusType } from '@Shared/enums/order-status-type.enum';
-import { OrderMapper } from '../../mappers/order.mapper';
-import { FindAllOrdersUseCase } from './find-all-orders.use-case';
+import { FindAllOrdersUseCase } from '../src/application/use-cases/order/find-all-orders.use-case';
 
 describe('FindAllOrdersUseCase', () => {
   let useCase: FindAllOrdersUseCase;

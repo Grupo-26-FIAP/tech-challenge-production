@@ -1,4 +1,4 @@
-import { TotalPriceValueObject } from './total-price.value-objects';
+import { TotalPriceValueObject } from '../src/domain/value-objects/total-price.value-objects';
 
 describe('TotalPriceValueObject', () => {
   it('should create a TotalPriceValueObject with a valid value', () => {

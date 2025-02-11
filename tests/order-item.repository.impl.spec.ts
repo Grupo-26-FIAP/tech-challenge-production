@@ -4,7 +4,7 @@ import { OrderItemModel } from '@Infrastructure/typeorm/models/order-item.model'
 import { Test, TestingModule } from '@nestjs/testing';
 import { getRepositoryToken } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
-import { OrderItemRepositoryImpl } from './order-item.repository.impl';
+import { OrderItemRepositoryImpl } from '../src/infrastructure/repositories/order-item.repository.impl';
 
 describe('OrderItemRepositoryImpl', () => {
   let repository: OrderItemRepositoryImpl;

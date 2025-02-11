@@ -1,16 +1,16 @@
+import { OrderEntity } from '@Domain/entities/order.entity';
 import {
   IOrderItemRepository,
   IOrderItemRepositorySymbol,
 } from '@Domain/repositories/order-item.repository';
-import { NotFoundException } from '@nestjs/common';
-import { Test, TestingModule } from '@nestjs/testing';
-import { OrderStatusType } from '@Shared/enums/order-status-type.enum';
-import { OrderEntity } from '../../entities/order.entity';
 import {
   IOrderRepository,
   IOrderRepositorySymbol,
-} from '../../repositories/order.repository';
-import { OrderServiceImpl } from './order.service.impl';
+} from '@Domain/repositories/order.repository';
+import { NotFoundException } from '@nestjs/common';
+import { Test, TestingModule } from '@nestjs/testing';
+import { OrderStatusType } from '@Shared/enums/order-status-type.enum';
+import { OrderServiceImpl } from '../src/domain/services/order/order.service.impl';
 
 describe('OrderServiceImpl', () => {
   let service: OrderServiceImpl;
