@@ -1,199 +1,111 @@
-# Tech Challenge Production
+# Tech Challenge - Production 📦
 
-Acompanhamento: Uma vez que o pedido é confirmado e pago, ele é enviado para a cozinha para ser preparado. Simultaneamente deve aparecer em um monitor para o cliente acompanhar o progresso do seu pedido com as seguintes etapas:
+## 📌 Sobre o Projeto
 
-- Recebido
-- Em preparação
-- Pronto
-- Finalizado
+O **Tech Challenge - Production** é um dos módulos do ecossistema Tech Challenge, desenvolvido para gerenciar a produção de pedidos de forma eficiente. Ele permite o acompanhamento do fluxo de produção, desde o recebimento até a conclusão, garantindo maior controle e agilidade no processo.
 
-**Entrega**: Quando o pedido estiver pronto, o sistema deverá notificar o cliente que ele está pronto para retirada. Ao ser retirado, o pedido deve ser atualizado para o status finalizado.
+## 🚀 Tecnologias Utilizadas
 
+Este projeto foi desenvolvido utilizando as seguintes tecnologias e ferramentas:
 
-## Estrutura de Pastas
+- **NestJS** - Framework progressivo para Node.js
+- **TypeScript** - Linguagem utilizada no desenvolvimento
+- **TypeORM** - ORM para interação com banco de dados
+- **PostgreSQL** - Banco de dados relacional
+- **Docker** - Para conteinerização e execução isolada do ambiente
+- **Jest** - Framework para testes unitários e de integração
+- **RabbitMQ** - Para comunicação assíncrona entre serviços
 
-Este documento descreve a estrutura de pastas da aplicação baseada na Clean Architecture. Essa organização visa garantir uma separação clara de responsabilidades entre as diferentes camadas do sistema, facilitando a manutenção e evolução da aplicação.
-
-```
-src/
-├── domain/
-│   ├── entities/
-│   ├── value-objects/
-│   ├── services/
-│   └── repositories/
-│
-├── application/
-│   ├── use-cases/
-│   ├── dtos/
-│   └── mappers/
-│
-├── infrastructure/
-│   ├── orm/
-│   ├── repositories/
-│   └── config/
-│
-├── presentation/
-│   └── controllers/
-│
-└── main.ts
-```
-
-## Descrição das Pastas e Arquivos
-
-### `src/domain/`
-
-- **`entities/`**: Contém as entidades do domínio, que representam os modelos principais do sistema.
-- **`value-objects/`**: Contém os Objetos de Valor do domínio, que são objetos imutáveis utilizados em conjunto com as entidades.
-- **`services/`**: Contém serviços que implementam as regras de negócio puras do domínio, sem depender de detalhes de infraestrutura.
-- **`repositories/`**: Contém interfaces para repositórios, que são portas de saída para a persistência de dados.
-
-### `src/application/`
-
-- **`use-cases/`**: Contém casos de uso da aplicação, que definem as operações específicas que a aplicação pode realizar e coordenam as interações entre entidades e serviços.
-- **`dtos/`**: Contém Data Transfer Objects, que são utilizados para transferir dados entre diferentes camadas da aplicação.
-- **`mappers/`**: Contém mapeamentos entre entidades e DTOs para facilitar a conversão de dados entre o formato de persistência e o formato de apresentação.
-
-### `src/presentation/`
-
-- **`controllers/`**: Contém adaptadores de entrada, como controladores HTTP, que recebem as requisições dos clientes e invocam os casos de uso apropriados.
-
-### `src/infrastructure/`
-
-- **`typeorm/`**: Contém configurações e implementações específicas do ORM (TypeORM), como conexões com o banco de dados e definições de entidades.
-- **`repositories/`**: Contém a implementação concreta dos repositórios definidos no domínio.
-- **`services/`**: Contém serviços de infraestrutura que oferecem funcionalidades auxiliares para a aplicação, como serviços de cache ou de mensageria.
-- **`config/`**: Contém configurações da aplicação, como variáveis de ambiente e configurações específicas do sistema.
-
-### `src/shared/`
-
-- **`shared/`**: Contém código e configurações compartilhadas que são usadas em várias partes da aplicação, como utilitários comuns e configurações globais.
-
-### `src/main.ts`
-
-- **`main.ts`**: Ponto de entrada da aplicação. Configura e inicializa o módulo principal do NestJS e inicia o servidor.
-
-## Diagrama de Arquitetura Limpa
-
-O diagrama abaixo ilustra a interação entre as diferentes camadas e componentes da arquitetura limpa do projeto. Esta arquitetura é projetada para promover uma separação clara entre as diferentes responsabilidades do sistema, facilitando a manutenção e evolução da aplicação.
-
-```mermaid
-graph TD
-    subgraph Presentation
-        A[Controllers]
-    end
-
-    subgraph Application
-        A[Controllers] -->|Calls| B[Use Cases]
-        B[Use Cases] -->|Maps to/from| D[DTOs]
-        B -->|Interacts with| C[Application Services]
-    end
-
-    subgraph Domain
-        C -->|Uses| E[Entities]
-        C -->|Uses| F[Domain Services]
-        E -->|Persisted by| G[Repositories Interface]
-    end
-
-    subgraph Infrastructure
-        G -->|Implements| H[Infrastructure Repositories]
-        H -->|Configured in| I[ORM Config]
-        I -->|Uses| J[ORM Models]
-        I -->|Provides| K[ORM Repositories]
-        H -->|Seeded by| L[Seed Scripts]
-        M[External APIs] -->|Uses| C
-    end
-
-    %%% Optional styling to make the diagram clearer
-    classDef presentation fill:#f9f,stroke:#333,stroke-width:2px;
-    classDef application fill:#f99,stroke:#333,stroke-width:2px;
-    classDef domain fill:#ccf,stroke:#333,stroke-width:2px;
-    classDef infra fill:#cfc,stroke:#333,stroke-width:2px;
-
-    class Presentation presentation;
-    class Application application;
-    class Domain domain;
-    class Infrastructure infra;
+## 📁 Estrutura do Projeto
 
 ```
-
-## Documentação do Banco de Dados
-
-Este documento descreve a estrutura do banco de dados utilizado no projeto. Inclui a descrição de cada tabela, suas colunas e os relacionamentos entre elas.
-
-
-
-### Diagrama do Banco de Dados
-
-O diagrama abaixo ilustra a estrutura das tabelas e suas relações:
-
-```mermaid
-erDiagram
-    order {
-        int id
-        int estimatePreparationTime
-        int preparationTime
-        string orderStatus
-        datetime created_at
-        datetime updated_at
-    }
-    orderItem {
-        int id
-        int orderId
-        int productId
-        int quantity
-        datetime created_at
-    }
-    order ||--o{ orderItem : contains
+tech-challenge-production/
+│-- src/
+│   │-- application/       # Casos de uso e regras de negócio
+│   │-- domain/            # Entidades e contratos
+│   │-- infrastructure/    # Repositórios e integrações
+│   │-- presentation/      # Controllers e API REST
+│   └-- main.ts            # Ponto de entrada da aplicação
+│-- test/                 # Testes unitários e de integração
+│-- .env                  # Variáveis de ambiente
+│-- docker-compose.yml     # Configuração do ambiente Docker
+│-- README.md              # Documentação do projeto
 ```
 
-### Detalhes Adicionais
+## 🔧 Como Executar o Projeto
 
-- **Chave Primária (PK)**: Identificador único de cada registro na tabela.
-- **Chave Estrangeira (FK)**: Referência a registros em outras tabelas.
-- **Soft Delete**: Colunas `deleted_at` usadas para implementar exclusão lógica.
+### 📌 Pré-requisitos
+Certifique-se de ter instalado em sua máquina:
+- [Node.js](https://nodejs.org/)
+- [Docker](https://www.docker.com/)
+- [Docker Compose](https://docs.docker.com/compose/)
 
-## Como Executar o Projeto
+### 📥 Clonando o Repositório
 
-1. **Clone o repositório** (se ainda não o fez):
-
-```bash
-git clone https://github.com/Grupo-26-FIAP/tech-challenge-production
+```sh
+git clone https://github.com/Grupo-26-FIAP/tech-challenge-production.git
 cd tech-challenge-production
 ```
 
-### Utilizando Docker
+### 🚀 Rodando com Docker
 
-Para executar o projeto utilizando Docker, siga os passos abaixo:
-
-1. **Certifique-se de que o Docker e o Docker Compose estão instalados**:
-
-   - [Docker](https://www.docker.com/get-started)
-   - [Docker Compose](https://docs.docker.com/compose/install/)
-
-2. **Inicie os Contêineres com Docker Compose**:
-
-Utilize o docker-compose.yml para iniciar a aplicação e os serviços dependentes (como o banco de dados):
-
-```bash
-docker compose up
+```sh
+docker-compose up --build
 ```
 
-Isso iniciará todos os serviços definidos no **docker-compose.yml**. Você verá os logs da aplicação no terminal.
+### 💻 Rodando localmente
 
-### **Acessando o Swagger**
+1. Instale as dependências:
+```sh
+npm install
+```
 
-Após iniciar os contêineres, o Swagger estará acessível em [http://localhost:3000/docs](http://localhost:3000/docs) (ou a porta definida no docker-compose.yml).
+2. Configure o banco de dados no arquivo `.env`
 
-> ⚠️ **Atenção**
->
-> [Instruções de fluxo](https://github.com/Grupo-26-FIAP/.github/wiki/Fluxo-de-teste)
+3. Execute as migrações:
+```sh
+npm run typeorm migration:run
+```
 
-## Contato (Grupo)
+4. Inicie a aplicação:
+```sh
+npm run start
+```
 
-Para dúvidas ou suporte, entre em contato com:
+A API estará disponível em `http://localhost:3000`.
 
-- **RM357358** Jhoni Farias (jhonifarias.developer@gmail.com)
-- **RM357836** Josef Henrique Zambreti (josefhenrique@uol.com.br)
-- **RM357360** Lucas Rodrigues Medina Costa (lucasmedinarmc@gmail.com)
-- **RM358012** Kleber de Oliveira Andrade (pdjkleber@gmail.com)
-- **RM357235** Vitória Camila Xavier Sobrinho (vcamilaxs@gmail.com)
+## ✅ Testes
+
+Para rodar os testes unitários e de integração:
+
+```sh
+npm run test
+```
+
+Para rodar os testes com cobertura de código:
+
+```sh
+npm run test:cov
+```
+
+## 📬 Comunicação Entre Módulos
+
+Este módulo se comunica com outros serviços via **RabbitMQ**, recebendo e enviando eventos para processamento de pedidos.
+
+## 🛠️ Contribuição
+
+Ficamos felizes em receber contribuições! Para contribuir:
+1. Fork o repositório
+2. Crie uma branch (`git checkout -b feature/nova-feature`)
+3. Commit suas alterações (`git commit -m 'Adicionando nova feature'`)
+4. Faça push para a branch (`git push origin feature/nova-feature`)
+5. Abra um Pull Request
+
+## 📄 Licença
+
+Este projeto está sob a licença MIT. Veja o arquivo [LICENSE](LICENSE) para mais detalhes.
+
+---
+
+Feito com ❤️ pelo Grupo 26 - FIAP 🚀
+
