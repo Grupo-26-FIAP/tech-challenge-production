@@ -1,5 +1,13 @@
 # Tech Challenge - Production 📦
 
+![Badge](https://img.shields.io/badge/Status-Em%20Desenvolvimento-yellow)
+![Badge](https://img.shields.io/badge/Contributors-Grupo%2026-blue)
+![Badge](https://img.shields.io/badge/License-MIT-green)
+[![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=Grupo-26-FIAP_tech-challenge-production&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=Grupo-26-FIAP_tech-challenge-production)
+[![Coverage](https://sonarcloud.io/api/project_badges/measure?project=Grupo-26-FIAP_tech-challenge-production&metric=coverage)](https://sonarcloud.io/summary/new_code?id=Grupo-26-FIAP_tech-challenge-production)
+
+
+
 ## 📌 Sobre o Projeto
 
 O **Tech Challenge - Production** é um dos módulos do ecossistema Tech Challenge, desenvolvido para gerenciar a produção de pedidos de forma eficiente. Ele permite o acompanhamento do fluxo de produção, desde o recebimento até a conclusão, garantindo maior controle e agilidade no processo.
