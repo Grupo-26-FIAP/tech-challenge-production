@@ -14,7 +14,7 @@ Este projeto foi desenvolvido utilizando as seguintes tecnologias e ferramentas:
 - **PostgreSQL** - Banco de dados relacional
 - **Docker** - Para conteinerização e execução isolada do ambiente
 - **Jest** - Framework para testes unitários e de integração
-- **RabbitMQ** - Para comunicação assíncrona entre serviços
+- **SQS** - Para comunicação assíncrona entre serviços
 
 ## 📁 Estrutura do Projeto
 
@@ -72,7 +72,7 @@ npm run typeorm migration:run
 npm run start
 ```
 
-A API estará disponível em `http://localhost:3000`.
+A API estará disponível em `http://localhost:3004`.
 
 ## ✅ Testes
 
@@ -90,7 +90,31 @@ npm run test:cov
 
 ## 📬 Comunicação Entre Módulos
 
-Este módulo se comunica com outros serviços via **RabbitMQ**, recebendo e enviando eventos para processamento de pedidos.
+Este módulo se comunica com outros serviços via **SQS**, recebendo e enviando eventos para processamento de pedidos.
+
+### Diagrama do Banco de Dados
+
+O diagrama abaixo ilustra a estrutura das tabelas e suas relações:
+
+```mermaid
+erDiagram
+    order {
+        int id
+        int estimatePreparationTime
+        int preparationTime
+        string orderStatus
+        datetime created_at
+        datetime updated_at
+    }
+    orderItem {
+        int id
+        int orderId
+        int productId
+        int quantity
+        datetime created_at
+    }
+    order ||--o{ orderItem : contains
+```
 
 ## 🛠️ Contribuição
 
@@ -100,6 +124,16 @@ Ficamos felizes em receber contribuições! Para contribuir:
 3. Commit suas alterações (`git commit -m 'Adicionando nova feature'`)
 4. Faça push para a branch (`git push origin feature/nova-feature`)
 5. Abra um Pull Request
+
+## 👥 Time de Desenvolvimento
+
+| Nome                           | RM           | E-mail                                                             | GitHub                                             |
+| ------------------------------ | ------------ | ------------------------------------------------------------------ | -------------------------------------------------- |
+| Jhoni Farias                   | **RM357358** | [jhonifarias.developer@gmail.com](jhonifarias.developer@gmail.com) | [@JhoniFarias](https://github.com/JhoniFarias)     |
+| Josef Henrique Zambreti        | **RM357836** | [josefhenrique@uol.com.br](josefhenrique@uol.com.br)               | [@Josefhz](https://github.com/Josefhz)             |
+| Lucas Rodrigues Medina Costa   | **RM357360** | [lucasmedinarmc@gmail.com](lucasmedinarmc@gmail.com)               | [@diname](https://github.com/diname)               |
+| Kleber de Oliveira Andrade     | **RM358012** | [pdjkleber@gmail.com](pdjkleber@gmail.com)                         | [@kleberandrade](https://github.com/kleberandrade) |
+| Vitória Camila Xavier Sobrinho | **RM357235** | [vcamilaxs@gmail.com](vcamilaxs@gmail.com)                         | [@itsvickie](https://github.com/itsvickie)         |
 
 ## 📄 Licença
 
