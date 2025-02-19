@@ -37,10 +37,12 @@ const config: Config.InitialOptions = {
     '/src/domain/repositories/',
     '/src/domain/entities/',
     '/src/presentation/controllers/',
+    '/test/',
     'app.module.ts',
     'main.ts',
     '.eslintrc.js',
     'jest.config.ts',
+    'cucumber.js',
   ],
   coverageReporters: ['html', 'text', 'lcov'],
 };
